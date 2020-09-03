@@ -1,18 +1,29 @@
-#!/usr/bin/python
+# opening the file
+text = open("declaration.txt", "r")
 
+# new dictionary
+d = dict()
 
-def readFile():
-    file = open("declaration.txt", "r")
-    text = file.read()
-    file.close()
-    print(text)
-    return text
+# reading every line of the file
+for line in text:
+    line = line.strip()
+    line = line.lower()
+    words = line.split(" ")
 
+    # counting the occurences in 'words'
+    for word in words:
+        if word in d:
+            d[word] = d[word] + 1
+        else:
+            d[word] = 1
 
-def countWords(text):
-    words = text.split()
-    print(len(words))
+# sorting the dictionary into a list
+lists = sorted(d.keys())
 
+# create a new file
+text = open("declarationKey.txt", "w")
 
-text = readFile()
-countWords(text)
+# writing the word and the key value into the file
+for word in lists:
+    text.write(word + " " + str(d[word]) + "\n")
+text.close()
